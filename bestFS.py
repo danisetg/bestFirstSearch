@@ -1,6 +1,6 @@
 # Class for defining given position reached
 class Node:
-    def __init__(self, squareDistribution, cost, father, high, emptySpacePositionX, emptySpacePositionY):
+    def __init__(self, squareDistribution, father, high, emptySpacePositionX, emptySpacePositionY, cost = -1):
         self.squareDistribution = squareDistribution
         self.cost = cost
         self.father = father
