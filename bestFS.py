@@ -1,6 +1,6 @@
 # Class for defining given position reached
 class Node:
-    def __init__(self, squareDistribution, cost, father, high, emptySpacePositionX, emptySpacePositionY):
+    def __init__(self, squareDistribution, father, high, emptySpacePositionX, emptySpacePositionY, cost = -1):
         self.squareDistribution = squareDistribution
         self.cost = cost
         self.father = father
@@ -8,34 +8,27 @@ class Node:
         self.emptySpacePositionX = emptySpacePositionX
         self.emptySpacePositionY = emptySpacePositionY
     
-    def moveUp(self):
-        self.squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY] = self.squareDistribution[self.emptySpacePositionX - 1][self.emptySpacePositionY] 
-        self.squareDistribution[self.emptySpacePositionX - 1][self.emptySpacePositionY] = -1
-        self.emptySpacePositionX -= 1
+    def getUpDistribution(self):
+        squareDistribution = self.squareDistribution
+        squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY] = self.squareDistribution[self.emptySpacePositionX - 1][self.emptySpacePositionY] 
+        squareDistribution[self.emptySpacePositionX - 1][self.emptySpacePositionY] = -1
+        return squareDistribution
     
-    def moveDown(self):
-        self.squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY] = self.squareDistribution[self.emptySpacePositionX + 1][self.emptySpacePositionY] 
-        self.squareDistribution[self.emptySpacePositionX + 1][self.emptySpacePositionY] = -1
-        self.emptySpacePositionX += 1
+    def getDownDistribution(self):
+        squareDistribution = self.squareDistribution
+        squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY] = self.squareDistribution[self.emptySpacePositionX + 1][self.emptySpacePositionY] 
+        squareDistribution[self.emptySpacePositionX + 1][self.emptySpacePositionY] = -1
+        return squareDistribution
     
-    def moveLeft(self):
-        self.squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY] = self.squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY-1] 
-        self.squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY - 1]  = -1
-        self.emptySpacePositionY -= 1
+    def getLeftDistribution(self):
+        squareDistribution = self.squareDistribution
+        squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY] = self.squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY-1] 
+        squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY - 1]  = -1
+        return squareDistribution
     
-    def moveRigth(self):
-        self.squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY] = self.squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY + 1] 
-        self.squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY + 1] = -1
-        self.emptySpacePositionX += 1
-
-
-
-print("Introduce the number of test cases:")
-t = input()
-print(t)
-for i in range(0, int(t)):
-    print("Introduce the initial Square distribution. Use '-1' for empty square")
-    distrib = [[0 for x in range(3)] for y in range(3)] 
-    for x in range(0, 3):
-            distrib[x] = input().split()
-    print(distrib)
+    def getRightDistribution(self):
+        squareDistribution = self.squareDistribution
+        squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY] = self.squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY + 1] 
+        squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY + 1] = -1
+        emptySpacePositionX += 1
+    
