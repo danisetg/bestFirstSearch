@@ -1,0 +1,7 @@
+{
+    "name": "Python: bestFS.py",
+    "type": "python",
+    "request": "launch",
+    "program": "${workspaceFolder}/bestFS.py",
+    "console": "integratedTerminal"
+}
