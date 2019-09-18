@@ -2,6 +2,7 @@
 
 from bestFS import Node
 from FSPriorityQueue import FSPriorityQueue
+ import FSPriorityQueue
 
 FINAL_STATE = [[1, 2, 3], [8, 0, 4], [7, 6, 5]]
 
