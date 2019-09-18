@@ -2,13 +2,15 @@
 
 from bestFS import Node
 from FSPriorityQueue import FSPriorityQueue
+from FSOrderedList import FSOrderedList
 
 FINAL_STATE = [[1, 2, 3], [8, 0, 4], [7, 6, 5]]
 
 class Puzzle:
     def __init__(self, initialState):        
         self.initialState = initialState
-        self.newStates = FSPriorityQueue()        
+        self.newStates = FSPriorityQueue()  
+        self.visitedStates = FSOrderedList()      
     
     def _heuristic(self, state):                
         i = 0
@@ -20,4 +22,7 @@ class Puzzle:
                 count += 1
             i +=1
         state.cost = state.high + count
+    
+    def searchSolution(self):
+        return 1
     
