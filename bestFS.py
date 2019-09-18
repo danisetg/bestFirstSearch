@@ -39,4 +39,11 @@ class Node:
         squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY] = self.squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY + 1] 
         squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY + 1] = -1
         return squareDistribution
+
+    def toString(self):  #returns the distribution matrix as a String
+        s = ''
+        for i in range(0 , 3):
+            for h in range(0 , 3):
+                s = s + self.squareDistribution[i][h] #concatenates every number in the square in a secuencial way
+        return s
     
