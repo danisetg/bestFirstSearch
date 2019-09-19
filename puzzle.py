@@ -58,6 +58,7 @@ class Puzzle:
                     list.append('Down')
                 else:
                     list.append('Up')
+            self.solution = self.solution.father        
     
     def _expand(self, state):
         #Try to create the childs
