@@ -68,6 +68,7 @@ class Puzzle:
         list = []
         if self._searchForSolution():
            self._getPath(list) 
+        self.list = self.list.reverse()
         return list
 
     def _searchForSolution(self):
