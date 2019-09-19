@@ -18,7 +18,7 @@ class Puzzle:
         list = []
         if self._searchForSolution() == True:
             self._getPath(list)  #To get the movements
-        self.list = self.list.reverse()
+        list = list.reverse()
         return list
 
     def _searchForSolution(self):
