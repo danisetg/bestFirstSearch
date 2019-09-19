@@ -10,15 +10,16 @@ class Puzzle:
         self.newStates = FSPriorityQueue() 
         self.visitedStates = HashTable()
         self.solution = None       
-        self.FINAL_STATE = [['1', '2', '3'], ['8', '-1', '4'], ['7', '6', '5']]
+        self.finalState = None
 
-    def puzzleMethod(self, initialState):
+    def puzzleMethod(self, initialState, finalState):
         self.initialState = initialState
+        self.finalState = finalState
         self.newStates.put(self.initialState, 0) #Put the initial state to the states queue
         list = []
         if self._searchForSolution() == True:
-            self._getPath(list)  #To get the movements
-        list = list.reverse()
+            self._getPath(list)  #To get the movements        
+        list.reverse()
         return list
 
     def _searchForSolution(self):
@@ -26,7 +27,7 @@ class Puzzle:
             state = self.newStates.get()  #Get the better state
             if (self.visitedStates.Search(state.toString()) is None): #Check if the state was already visited                
                 self.visitedStates.Insert(state.toString()) #Put the state to the visited list (Consult if this is the correct place (*)) 
-                if state.squareDistribution == self.FINAL_STATE: #Base condition (P ∩ Q = Ø)
+                if state.squareDistribution == self.finalState: #Base condition (P ∩ Q = Ø)
                     self.solution = state
                     return True  
                 else:
@@ -55,9 +56,10 @@ class Puzzle:
                     list.append('Rigth')
             else: # Up or down move
                 if row < 0:
-                    list.append('Down')
-                else:
                     list.append('Up')
+                else:
+                    list.append('Down')
+            list.append('Done')
             self.solution = self.solution.father        
     
     def _expand(self, state):
