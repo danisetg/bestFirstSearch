@@ -1,44 +1,44 @@
 import copy
 # Class for defining given position reached
 class Node:
-    def __init__(self, squareDistribution, father, high, emptySpacePositionX, emptySpacePositionY, cost = -1):
+    def __init__(self, squareDistribution, father, high, emptySpacePositionRow, emptySpacePositionColumn, cost = -1):
         self.squareDistribution = squareDistribution
         self.cost = cost
         self.father = father
         self.high = high
-        self.emptySpacePositionX = emptySpacePositionX
-        self.emptySpacePositionY = emptySpacePositionY
+        self.emptySpacePositionRow = emptySpacePositionRow
+        self.emptySpacePositionColumn = emptySpacePositionColumn
     
     def getLeftDistribution(self):
-        if self.emptySpacePositionX == 0: #Cant move left 
+        if self.emptySpacePositionColumn == 0: #Cant move left 
             return None
         squareDistribution = copy.deepcopy(self.squareDistribution)
-        squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY] = self.squareDistribution[self.emptySpacePositionX - 1][self.emptySpacePositionY] 
-        squareDistribution[self.emptySpacePositionX - 1][self.emptySpacePositionY] = '-1'
+        squareDistribution[self.emptySpacePositionRow][self.emptySpacePositionColumn] = self.squareDistribution[self.emptySpacePositionRow][self.emptySpacePositionColumn - 1] 
+        squareDistribution[self.emptySpacePositionRow][self.emptySpacePositionColumn - 1] = '-1'
         return squareDistribution
     
     def getRightDistribution(self):
-        if self.emptySpacePositionX == 2: #Cant move right
+        if self.emptySpacePositionColumn == 2: #Cant move right
             return None
         squareDistribution = copy.deepcopy(self.squareDistribution)
-        squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY] = self.squareDistribution[self.emptySpacePositionX + 1][self.emptySpacePositionY] 
-        squareDistribution[self.emptySpacePositionX + 1][self.emptySpacePositionY] = '-1'
+        squareDistribution[self.emptySpacePositionRow][self.emptySpacePositionColumn] = self.squareDistribution[self.emptySpacePositionRow][self.emptySpacePositionColumn + 1] 
+        squareDistribution[self.emptySpacePositionRow][self.emptySpacePositionColumn + 1] = '-1'
         return squareDistribution
     
     def getUpDistribution(self):
-        if self.emptySpacePositionY == 0: #Cant move up
+        if self.emptySpacePositionRow == 0: #Cant move up
             return None
         squareDistribution = copy.deepcopy(self.squareDistribution)
-        squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY] = self.squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY-1] 
-        squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY - 1]  = '-1'
+        squareDistribution[self.emptySpacePositionRow][self.emptySpacePositionColumn] = self.squareDistribution[self.emptySpacePositionRow - 1][self.emptySpacePositionColumn] 
+        squareDistribution[self.emptySpacePositionRow - 1][self.emptySpacePositionColumn]  = '-1'
         return squareDistribution
     
     def getDownDistribution(self):
-        if self.emptySpacePositionY == 2: #Cant move down
+        if self.emptySpacePositionRow == 2: #Cant move down
             return None
         squareDistribution = copy.deepcopy(self.squareDistribution)
-        squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY] = self.squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY + 1] 
-        squareDistribution[self.emptySpacePositionX][self.emptySpacePositionY + 1] = '-1'
+        squareDistribution[self.emptySpacePositionRow][self.emptySpacePositionColumn] = self.squareDistribution[self.emptySpacePositionRow + 1][self.emptySpacePositionColumn] 
+        squareDistribution[self.emptySpacePositionRow + 1][self.emptySpacePositionColumn] = '-1'
         return squareDistribution
 
     def toString(self):  #returns the distribution matrix as a String

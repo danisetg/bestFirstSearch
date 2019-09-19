@@ -25,15 +25,15 @@ class Puzzle:
     
     def _getPath(self, list):        
         while not(self.solution.father is None):
-            x =  self.solution.emptySpacePositionX - self.solution.father.emptySpacePositionX # Horizontal move
-            y =  self.solution.emptySpacePositionY - self.solution.father.emptySpacePositionY # Vertical move
-            if x != 0:  # Left or right move
-                if x < 0:
+            row =  self.solution.emptySpacePositionRow - self.solution.father.emptySpacePositionRow # Horizontal move
+            column =  self.solution.emptySpacePositionColumn - self.solution.father.emptySpacePositionColumn # Vertical move
+            if column != 0:  # Left or right move
+                if column < 0:
                     list.append('Left')
                 else:
                     list.append('Rigth')
             else: # Up or down move
-                if y < 0:
+                if row < 0:
                     list.append('Down')
                 else:
                     list.append('Up')
@@ -43,22 +43,22 @@ class Puzzle:
         #Remember we must check if the new child exist in the visited states!!!! (*)
         #Up move
         if not(state.getUpDistribution() is None):
-            up = Node(state.getUpDistribution(), state, state.high + 1, state.emptySpacePositionX, state.emptySpacePositionY - 1)
+            up = Node(state.getUpDistribution(), state, state.high + 1, state.emptySpacePositionRow - 1, state.emptySpacePositionColumn)
             self._heuristic(up) #Update cost
             self.newStates.put(up, up.cost) #Put the new child state to the states queue
         #Down move    
         if not(state.getDownDistribution() is None):
-            down = Node(state.getDownDistribution(), state, state.high + 1, state.emptySpacePositionX, state.emptySpacePositionY + 1)
+            down = Node(state.getDownDistribution(), state, state.high + 1, state.emptySpacePositionRow + 1, state.emptySpacePositionColumn)
             self._heuristic(down) #Update cost
             self.newStates.put(down, down.cost) #Put the new child state to the states queue
         #Left move    
         if not(state.getLeftDistribution() is None):
-            left = Node(state.getLeftDistribution(), state, state.high + 1, state.emptySpacePositionX - 1, state.emptySpacePositionY)
+            left = Node(state.getLeftDistribution(), state, state.high + 1, state.emptySpacePositionRow, state.emptySpacePositionColumn - 1)
             self._heuristic(left) #Update cost
             self.newStates.put(left, left.cost) #Put the new child state to the states queue
         #Right move
         if not(state.getRightDistribution() is None):
-            right = Node(state.getRightDistribution(), state, state.high + 1, state.emptySpacePositionX + 1, state.emptySpacePositionY)
+            right = Node(state.getRightDistribution(), state, state.high + 1, state.emptySpacePositionRow, state.emptySpacePositionColumn + 1)
             self._heuristic(right) #Update cost
             self.newStates.put(right, right.cost) #Put the new child state to the states queue
 
