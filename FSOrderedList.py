@@ -2,26 +2,24 @@
 
 class HashTable:
     def __init__(self):
-        self.table = [None] * 127  #We need to check the size table
+        self.table = {}  #We need to check the size table
     
     # Función hash
     def Hash_func(self, value):
         key = 0
         for i in range(0,len(value)):
-            key += ord(value[i])
+            key += int(value[i])*(i+1)
         return key % 127
 
     def Insert(self, value): #Input elements
-        hash = self.Hash_func(value)
-        if self.table[hash] is None:
-            self.table[hash] = value
+        if not self.table.get(value):
+            self.table.update({value: True})
    
     def Search(self,value): #Search elements
-        hash = self.Hash_func(value)
-        if self.table[hash] is None:
+        if not self.table.get(value):
             return None
         else:
-            return hex(id(self.table[hash]))
+            return self.table.get(value)
   
     def Remove(self,value): #Delete elements
         hash = self.Hash_func(value)

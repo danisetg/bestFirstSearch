@@ -1,4 +1,4 @@
-from Queue import PriorityQueue
+from queue import PriorityQueue
 
 class FSPriorityQueue(PriorityQueue):
     def __init__(self):
