@@ -17,5 +17,8 @@ for i in range(0, tests):
                 emptyPositionRow = h
 
     initialNode = Node(initialDistrib, None, 0, emptyPositionRow, emptyPositionColumn)
+    print("Introduzca la distribución final del puzzle, use '-1' para el cuadro vacío")
+    for h in range(0,3): #input the three rows of distribution numbers
+        finalDistrib[h] = (input().split(' '))
     puzzle = Puzzle()
-    print(puzzle.puzzleMethod(initialNode))
+    print(puzzle.puzzleMethod(initialNode, finalDistrib))

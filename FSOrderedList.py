@@ -4,13 +4,6 @@ class HashTable:
     def __init__(self):
         self.table = {}  #We need to check the size table
     
-    # Función hash
-    def Hash_func(self, value):
-        key = 0
-        for i in range(0,len(value)):
-            key += int(value[i])*(i+1)
-        return key % 127
-
     def Insert(self, value): #Input elements
         if not self.table.get(value):
             self.table.update({value: True})
