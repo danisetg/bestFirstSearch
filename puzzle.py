@@ -11,6 +11,27 @@ class Puzzle:
         self.visitedStates = HashTable()
         self.solution = None       
         self.FINAL_STATE = [['1', '2', '3'], ['8', '-1', '4'], ['7', '6', '5']]
+
+    def puzzleMethod(self, initialState):
+        self.initialState = initialState
+        self.newStates.put(self.initialState, 0) #Put the initial state to the states queue
+        list = []
+        if self._searchForSolution() == True:
+            self._getPath(list)  #To get the movements
+        self.list = self.list.reverse()
+        return list
+
+    def _searchForSolution(self):
+        while (not self.newStates.empty()) and (self.solution is None): #Check if the new states queue is empty (Q ≠ Ø) and (P ∩ Q = Ø) who represent the not found solution
+            state = self.newStates.get()  #Get the better state
+            if (self.visitedStates.Search(state.toString()) is None): #Check if the state was already visited                
+                self.visitedStates.Insert(state.toString()) #Put the state to the visited list (Consult if this is the correct place (*)) 
+                if state.squareDistribution == self.FINAL_STATE: #Base condition (P ∩ Q = Ø)
+                    self.solution = state
+                    return True  
+                else:
+                    self._expand(state)                                       
+        return False 
     
     def _heuristic(self, state):                
         i = 0
@@ -61,24 +82,3 @@ class Puzzle:
             right = Node(state.getRightDistribution(), state, state.high + 1, state.emptySpacePositionX + 1, state.emptySpacePositionY)
             self._heuristic(right) #Update cost
             self.newStates.put(right, right.cost) #Put the new child state to the states queue
-
-    def puzzleMethod(self, initialState):
-        self.initialState = initialState
-        self.newStates.put(self.initialState, 0) #Put the initial state to the states queue
-        list = []
-        if self._searchForSolution() == True:
-           self._getPath(list) 
-        self.list = self.list.reverse()
-        return list
-
-    def _searchForSolution(self):
-        while (not self.newStates.empty()) and (self.solution is None): #Check if the new states queue is empty (Q ≠ Ø) and (P ∩ Q = Ø) who represent the not found solution
-            state = self.newStates.get()  #Get the better state
-            if (self.visitedStates.Search(state.toString()) is None): #Check if the state was already visited                
-                self.visitedStates.Insert(state.toString()) #Put the state to the visited list (Consult if this is the correct place (*)) 
-                if state.squareDistribution == self.FINAL_STATE: #Base condition (P ∩ Q = Ø)
-                    self.solution = state
-                    return True  
-                else:
-                    self._expand(state)                                       
-        return False 
