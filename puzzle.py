@@ -25,7 +25,7 @@ class Puzzle:
                 self._getPath(list)  #To get the movements        
             list.reverse()
             return list
-        return None
+        return "There is not solution for this case!!!" 
 
     def _searchForSolution(self):
         while (not self.newStates.empty()) and (self.solution is None): #Check if the new states queue is empty (Q ≠ Ø) and (P ∩ Q = Ø) who represent the not found solution
@@ -102,16 +102,16 @@ class Puzzle:
         print("------")
 
     def _isSolvable(self):
+        # Convertions the states to strings and eliminate the -1 character
+        iState = self.initialState.toString().replace('-1', '')
+        fState = ("".join(self.finalState[0]) + "".join(self.finalState[1]) + "".join(self.finalState[2])).replace('-1', '') # This is not the optimal code, but works
         count = 0
-        for i in range(0 , 3):
-            for h in range(0 , 3):
-                value = self.finalState.squareDistribution[i][h]
-                if value > 0:
-                    count += self._distance(i, h, self.finalState.squareDistribution[i][h])
-        return self.count % 2 == 0
+        for i in range(len(fState)):                        
+            count += self._distance(iState, fState[i])
+            iState = iState.replace(fState[i], '')  # To delete the processed value
+        return count % 2 == 0
     
-    def _distance(self, row, colum, value):
-        for i in range(0 , 3):
-            for h in range(0 , 3):
-                if value == self.initialState.squareDistribution[i][h]:
-                    return math.fabs(row - i) + math.fabs(colum - h)
+    def _distance(self, iState, value):
+        for i in range(len(iState)):
+            if value == iState[i]:
+                return i
