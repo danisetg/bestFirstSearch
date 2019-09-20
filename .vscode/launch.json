@@ -1,7 +1,7 @@
 {
-    "name": "Python: bestFS.py",
+    "name": "Python: Main.py",
     "type": "python",
     "request": "launch",
-    "program": "${workspaceFolder}/bestFS.py",
+    "program": "${workspaceFolder}/Main.py",
     "console": "integratedTerminal"
 }
