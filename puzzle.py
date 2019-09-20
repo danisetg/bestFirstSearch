@@ -1,5 +1,7 @@
 #Main class
 
+import math
+
 from Node import Node
 from FSPriorityQueue import FSPriorityQueue
 from FSOrderedList import HashTable
@@ -15,12 +17,15 @@ class Puzzle:
     def puzzleMethod(self, initialState, finalState):
         self.initialState = initialState
         self.finalState = finalState
-        self.newStates.put(self.initialState, 0) #Put the initial state to the states queue
-        list = []
-        if self._searchForSolution() == True:
-            self._getPath(list)  #To get the movements        
-        list.reverse()
-        return list
+
+        if self._isSolvable() == True:
+            self.newStates.put(self.initialState, 0) #Put the initial state to the states queue
+            list = []
+            if self._searchForSolution() == True:
+                self._getPath(list)  #To get the movements        
+            list.reverse()
+            return list
+        return None
 
     def _searchForSolution(self):
         while (not self.newStates.empty()) and (self.solution is None): #Check if the new states queue is empty (Q ≠ Ø) and (P ∩ Q = Ø) who represent the not found solution
@@ -95,3 +100,18 @@ class Puzzle:
                 print(distribution[j][i], end="")
             print("") 
         print("------")
+
+    def _isSolvable(self):
+        count = 0
+        for i in range(0 , 3):
+            for h in range(0 , 3):
+                value = self.finalState.squareDistribution[i][h]
+                if value > 0:
+                    count += self._distance(i, h, self.finalState.squareDistribution[i][h])
+        return self.count % 2 == 0
+    
+    def _distance(self, row, colum, value):
+        for i in range(0 , 3):
+            for h in range(0 , 3):
+                if value == self.initialState.squareDistribution[i][h]:
+                    return math.fabs(row - i) + math.fabs(colum - h)
